@@ -1,0 +1,26 @@
+---
+- name: Update apt cache | Debian / Ubuntu
+  apt:
+    update_cache: yes
+    cache_valid_time: 86400
+
+- name: Ensure APT transport HTTPS is installed | Debian / Ubuntu
+  apt:
+    name: 'apt-transport-https'
+    state: installed
+
+- name: Import Docker GPG key | Debian / Ubuntu
+  apt_key:
+    keyserver: 'p80.pool.sks-keyservers.net'
+    id: '58118E89F3A912897C070ADBF76221572C52609D'
+
+- name: Enable Docker apt repository | Debian / Ubuntu
+  apt_repository:
+    repo: '{{ docker_apt_repo }}'
+    state: present
+    update_cache: yes
+
+- name: Ensure Docker Engine is installed | Debian / Ubuntu
+  apt:
+    name: 'docker-engine'
+    state: present

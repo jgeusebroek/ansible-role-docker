@@ -1,0 +1,17 @@
+- name: Enable Docker yum repository | RedHat
+  template:
+    src: 'docker-repo.j2'
+    dest: '/etc/yum.repos.d/docker.repo'
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Import Docker GPG key | Redhat
+  rpm_key:
+    key: "{{ docker_yum_repo_gpg }}"
+    state: present
+
+- name: Ensure Docker Engine is installed | RedHat
+  yum:
+    name: 'docker-engine'
+    state: present
