@@ -4,6 +4,33 @@
     name: 'docker'
     enabled: True
 
+- name: Ensure TLS key basepath exists
+  file:
+    path: "{{ docker_tls_basepath }}"
+    state: directory
+  when: docker_tls_enable == True
+
+- name: Copy TLS keys to docker host
+  copy:
+    content: '{{ item.content }}'
+    dest: '{{ item.dest }}'
+    owner: root
+    group: root
+    mode: '{{ item.mode }}'
+  # no_log: True
+  with_items:
+    - { content: '{{ docker_tls_keys.ca_cert }}', dest: '{{ docker_tls_basepath }}/ca.crt', mode: '0644' }
+    - { content: '{{ docker_tls_keys.server_cert }}', dest: '{{ docker_tls_basepath }}/server.crt', mode: '0644' }
+    - { content: '{{ docker_tls_keys.server_key }}', dest: '{{ docker_tls_basepath }}/server.key', mode: '0600' }
+  when: docker_tls_enable == True
+  notify:
+    - Restart Docker
+
+- name: Append TLS configuration to docker options
+  set_fact:
+    docker_opts: "{{ docker_opts }} -H tcp://{{ docker_tls_bind }}:{{ docker_tls_port }} --tlsverify --tlscacert={{ docker_tls_basepath }}/ca.crt --tlscert={{ docker_tls_basepath }}/server.crt --tlskey={{ docker_tls_basepath }}/server.key"
+  when: docker_tls_enable == True
+
 - name: Create Docker upstart default config file
   template:
     src: 'docker-defaults.j2'
