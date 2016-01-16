@@ -1,4 +1,12 @@
 ---
+- name: Create docker group
+  group:
+    name: docker
+    state: present
+    gid: '{{ docker_group_id }}'
+    system: yes
+  when: docker_create_group == True
+
 - include: setup-Debian.yml
   when: ansible_os_family == "Debian"
 
