@@ -24,3 +24,10 @@
   apt:
     name: 'docker-engine'
     state: present
+
+- name: Create Docker upstart default config file
+  template:
+    src: 'docker-defaults.j2'
+    dest: '/etc/default/docker'
+  notify:
+    - Restart Docker

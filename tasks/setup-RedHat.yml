@@ -15,3 +15,19 @@
   yum:
     name: 'docker-engine'
     state: present
+
+- name: Ensure docker systemd drop-in directory exists
+  file:
+    path: '/etc/systemd/system/docker.service.d'
+    state: directory
+
+- name: Create Docker systemd drop-in file
+  template:
+    src: 'docker-systemd-service.j2'
+    dest: '/etc/systemd/system/docker.service.d/override.conf'
+  register: dropinfile
+  notify:
+    - Restart Docker
+
+- name: Reload systemd
+  command: 'systemctl daemon-reload'
