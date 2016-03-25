@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jgeusebroek/ansible-role-docker.svg?branch=master)](https://travis-ci.org/jgeusebroek/ansible-role-docker)
+
 # Ansible role: docker
 
 An Ansible Role that installs and configures Docker Engine on RedHat/CentOS or Debian/Ubuntu.
@@ -25,7 +27,7 @@ None
 
 	docker_create_group: False
 	docker_group_id: 797
-	
+
 Optionally create a system group named docker with the specified group ID.
 
     docker_opts: ''
@@ -33,10 +35,10 @@ Optionally create a system group named docker with the specified group ID.
 Use this to set your custom daemon options. Have a look at [https://docs.docker.com/engine/reference/commandline/daemon/](https://docs.docker.com/engine/reference/commandline/daemon/) for available options.
 
 	docker_tls_enable: True
-	
+
 When TLS is enabled it expects a dict named `docker_tls_keys` with the required private key, certificate, and certificate authority. See example below.
 
-Furthermore, **it automaticly appends** the required configuration values to the `docker_opts` variable. 
+Furthermore, **it automaticly appends** the required configuration values to the `docker_opts` variable.
 
 	-H tcp://0.0.0.0:2376 --tlsverify --tlscacert=/etc/docker/ca.crt \
 	--tlscert=/etc/docker/server.crt --tlskey=/etc/docker/server.key
@@ -47,7 +49,7 @@ The port and the IP can be overridden.
 	docker_tls_port: 2376
 
 Have a look at [https://docs.docker.com/engine/articles/https/](https://docs.docker.com/engine/articles/https/) for the official docker documentation.
-		
+
 	docker_tls_keys:
 	  ca_cert: |
 	    -----BEGIN CERTIFICATE-----
@@ -67,7 +69,7 @@ Have a look at [https://docs.docker.com/engine/articles/https/](https://docs.doc
 		<SNIP>
 	    xUXH/vsT27s57A9rtDFBtF2tJoBqvhMMzg3pKhhyRebuPgb3Zoi6
 	    -----END RSA PRIVATE KEY-----
-	    
+
 ## License
 
 MIT / BSD
