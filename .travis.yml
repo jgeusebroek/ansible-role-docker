@@ -4,8 +4,7 @@ python: "2.7"
 
 env:
   - ANSIBLE_VERSION=latest
-  - ANSIBLE_VERSION=1.9.4
-  - ANSIBLE_VERSION=1.8
+  - ANSIBLE_VERSION=2.0.0.1
 
 sudo: required
 services:
@@ -22,6 +21,8 @@ install:
 
 script:
   - echo localhost > inventory
+  # Show gathered facts
+  - ansible -i inventory --connection=local -m setup localhost
   # Run syntax check
   - ansible-playbook -i inventory --syntax-check test/integration/default/default.yml
   # Run playbook locally
