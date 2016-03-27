@@ -19,10 +19,10 @@
     mode: '{{ item.mode }}'
   no_log: True
   with_items:
-    - { content: '{{ docker_tls_keys.ca_cert }}', dest: '{{ docker_tls_basepath }}/ca.crt', mode: '0644' }
-    - { content: '{{ docker_tls_keys.server_cert }}', dest: '{{ docker_tls_basepath }}/server.crt', mode: '0644' }
-    - { content: '{{ docker_tls_keys.server_key }}', dest: '{{ docker_tls_basepath }}/server.key', mode: '0600' }
-  when: docker_tls_enable == True
+    - { content: 'docker_tls_keys.ca_cert|default("")', dest: '{{ docker_tls_basepath }}/ca.crt', mode: '0644' }
+    - { content: 'docker_tls_keys.server_cert|default("")', dest: '{{ docker_tls_basepath }}/server.crt', mode: '0644' }
+    - { content: 'docker_tls_keys.server_key|default("")', dest: '{{ docker_tls_basepath }}/server.key', mode: '0600' }
+  when: docker_tls_enable == True and docker_tls_keys.ca_cert is defined
   notify:
     - Restart Docker
 
