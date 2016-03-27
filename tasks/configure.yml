@@ -30,3 +30,30 @@
   set_fact:
     docker_opts: "{{ docker_opts }} -H tcp://{{ docker_tls_bind }}:{{ docker_tls_port }} --tlsverify --tlscacert={{ docker_tls_basepath }}/ca.crt --tlscert={{ docker_tls_basepath }}/server.crt --tlskey={{ docker_tls_basepath }}/server.key"
   when: docker_tls_enable == True
+
+- name: Create Docker upstart default config file
+  template:
+    src: 'docker-defaults.j2'
+    dest: '/etc/default/docker'
+  when: ansible_service_mgr == "upstart"
+  notify:
+    - Restart Docker
+
+- name: Ensure docker systemd drop-in directory exists
+  file:
+    path: '/etc/systemd/system/docker.service.d'
+    state: directory
+  when: ansible_service_mgr == "systemd"
+
+- name: Create Docker systemd drop-in file
+  template:
+    src: 'docker-systemd-service.j2'
+    dest: '/etc/systemd/system/docker.service.d/override.conf'
+  when: ansible_service_mgr == "systemd"
+  register: dropinfile
+  notify:
+    - Restart Docker
+
+- name: Reload systemd
+  command: 'systemctl daemon-reload'
+  when: ansible_service_mgr == "systemd" and dropinfile.changed
