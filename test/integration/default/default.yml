@@ -1,4 +1,9 @@
 ---
 - hosts: all
+  become: yes
+  become_method: sudo
+  vars:
+    docker_create_group: True
+    #ansible_user: vagrant
   roles:
     - ansible-role-docker
