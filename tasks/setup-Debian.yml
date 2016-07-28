@@ -29,3 +29,7 @@
   apt:
     name: 'docker-engine'
     state: present
+
+- name: "add user {{ ansible_user }} to docker group"
+  user: name={{ ansible_user }} groups=docker,{{ ansible_user }} append=yes
+  when: (docker_create_group == True and docker_add_current_user == True)
