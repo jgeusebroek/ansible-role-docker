@@ -4,11 +4,11 @@
 
 An Ansible Role that installs and configures Docker Engine on RedHat/CentOS or Debian/Ubuntu.
 
-Tested on CentOS 7 / Debian 8 and Ubuntu 14.04.
+Tested on CentOS 7, Debian 7 / 8 and Ubuntu 14.04 / 16.04.
 
 ## Requirements
 
-None
+Kernel requirements differ per distribution flavour. This role will check for a minumum version before installing. By default this is set to `3.10`. This can be overridden by the `docker_minimal_kernel_version` variable.
 
 ## Dependencies
 
@@ -28,7 +28,7 @@ None
 	docker_create_group: False
 	docker_group_id: 797
 
-Optionally create a system group named docker with the specified group ID.
+Optionally create a system group named docker with the specified group ID. Please note that a docker group will *always* be created by the docker packages, this setting however gives you control over the group id.
 
     docker_opts: ''
 
@@ -70,10 +70,14 @@ Have a look at [https://docs.docker.com/engine/articles/https/](https://docs.doc
 	    xUXH/vsT27s57A9rtDFBtF2tJoBqvhMMzg3pKhhyRebuPgb3Zoi6
 	    -----END RSA PRIVATE KEY-----
 
+The minimum kernel version requirement can be overridden:
+
+	docker_minimal_kernel_version: '3.13'
+
 ## License
 
 MIT / BSD
 
 ## Author Information
 
-This role was created in 2016 by [Jeroen Geusebroek](http://jeroengeusebroek.nl/).
+By [Jeroen Geusebroek](http://jeroengeusebroek.nl/) 2016 - 2017.
