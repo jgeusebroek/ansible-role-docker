@@ -4,8 +4,9 @@ docker_yum_repo_gpg: 'https://yum.dockerproject.org/gpg'
 
 docker_apt_repo: "deb https://apt.dockerproject.org/repo {{ ansible_distribution|lower }}-{{ ansible_distribution_release }} main"
 
-docker_create_group: False
+docker_create_group: True    # Optional
 docker_group_id: 797
+docker_add_current_user: True
 
 docker_tls_enable: False
 docker_tls_bind: '0.0.0.0'

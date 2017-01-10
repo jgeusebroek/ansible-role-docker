@@ -1,0 +1,8 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/trusty64"
+  config.vm.synced_folder "../../../../ansible-role-docker", "/home/vagrant/ansible-role-docker"
+  config.vm.provision "shell", privileged: false, path: "run-ansible.sh"
+end

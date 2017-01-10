@@ -7,7 +7,12 @@
 - name: Ensure APT transport HTTPS is installed | Debian / Ubuntu
   apt:
     name: 'apt-transport-https'
-    state: installed
+    state: present
+
+- name: Ensure ca-certificates are up to date
+  apt:
+    name: "ca-certificates"
+    state: present
 
 - name: Import Docker GPG key | Debian / Ubuntu
   apt_key:
@@ -24,3 +29,7 @@
   apt:
     name: 'docker-engine'
     state: present
+
+- name: "add user {{ ansible_user }} to docker group"
+  user: name={{ ansible_user }} groups=docker,{{ ansible_user }} append=yes
+  when: (docker_create_group == True and docker_add_current_user == True)
