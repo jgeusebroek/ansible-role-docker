@@ -29,3 +29,6 @@ script:
   - ansible-playbook -i inventory --connection=local --sudo -vvvv test/integration/default/default.yml
   # Run the Test Kitchen tests.
   - sudo /opt/busser/vendor/bats/bin/bats ./test/integration/default/bats/*.bats
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
