@@ -48,7 +48,7 @@ The port and the IP can be overridden.
 	docker_tls_bind: '0.0.0.0'
 	docker_tls_port: 2376
 
-Have a look at [https://docs.docker.com/engine/articles/https/](https://docs.docker.com/engine/articles/https/) for the official docker documentation.
+Have a look at [https://docs.docker.com/engine/security/https/](https://docs.docker.com/engine/security/https/) for the official docker documentation.
 
 	docker_tls_keys:
 	  ca_cert: |
