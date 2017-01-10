@@ -16,8 +16,8 @@ before_install:
 
 install:
   - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible; else pip install ansible==$ANSIBLE_VERSION; fi
-  - sudo gem install busser --no-ri --no-rdoc
-  - sudo busser plugin install busser-bats
+  - gem install busser --no-ri --no-rdoc
+  - busser plugin install busser-bats
 
 script:
   - echo localhost > inventory
