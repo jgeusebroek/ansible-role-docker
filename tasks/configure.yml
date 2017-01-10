@@ -39,6 +39,14 @@
   notify:
     - Restart Docker
 
+- name: Create Docker sysvinit default config file
+  template:
+    src: 'docker-sysvinit-defaults.j2'
+    dest: '/etc/default/docker'
+  when: ansible_service_mgr == "sysvinit"
+  notify:
+    - Restart Docker
+
 - name: Ensure docker systemd drop-in directory exists
   file:
     path: '/etc/systemd/system/docker.service.d'
