@@ -13,8 +13,10 @@ galaxy_info:
     - name: Debian
       versions:
       - jessie
+      - wheezy
     - name: Ubuntu
       versions:
         - trusty
+        - xenial
   categories:
     - system
