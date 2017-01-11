@@ -12,6 +12,6 @@
     state: present
 
 - name: Ensure Docker Engine is installed | RedHat
-  yum:
+  package:
     name: 'docker-engine'
     state: present
