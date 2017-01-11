@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/jgeusebroek/ansible-role-docker.svg?branch=master)](https://travis-ci.org/jgeusebroek/ansible-role-docker)
+[![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-jgeusebroek.docker-blue.svg)](https://galaxy.ansible.com/jgeusebroek/docker)
 
 # Ansible role: docker
 
