@@ -1,52 +1,51 @@
 ---
-services: docker
+language: python
+python: '2.7'
 
+# Require Docker
+services:
+  - docker
+
+# Requires sudo
+sudo: required
+
+# Spin off separate builds for each of the following versions of Ansible
 env:
-  - distro: centos7
-    init: /usr/lib/systemd/systemd
-    run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
-  - distro: centos6
-    init: /sbin/init
-    run_opts: ""
-  - distro: ubuntu1604
-    init: /lib/systemd/systemd
-    run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
-  - distro: ubuntu1404
-    init: /sbin/init
-    run_opts: ""
-  - distro: debian8
-    init: /lib/systemd/systemd
-    run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
+  # Minumum required Ansible version for Molecule
+  - ANSIBLE_PACKAGE='ansible==2.0.2'
+  # Latest ansible
+  - ANSIBLE_PACKAGE='ansible'
+
+# Require Ubuntu 14.04
+dist: trusty
+
+# Cache Ansible and Molecule to speed things up
+cache:
+  - pip
 
 before_install:
-  # Pull container.
-  - 'docker pull geerlingguy/docker-${distro}-ansible:latest'
+  # While developing I like to name my roles similair to their Ansible Galaxy names.
+  # These differ from their Github repository name.
+  - cd .. && mv ansible-role-docker jgeusebroek.docker && cd jgeusebroek.docker
+  # Upgrade Distro & install Docker
+  - sudo apt-get -qq update
+  - sudo apt-get install -o Dpkg::Options::='--force-confold' --force-yes -y docker-engine
+
+install:
+  # Install Ansible, Molecule and docker-py
+  - pip install "$ANSIBLE_PACKAGE" molecule docker-py
+
+  # Log Docker, Ansible and Molecule version
+  - docker --version
+  - ansible --version
+  - molecule --version
+
+  # Build the Docker images
+  - molecule create
+  - molecule destroy
 
 script:
-  - container_id=$(mktemp)
-  # Run container in detached state.
-  - 'docker run --detach --volume="${PWD}":/etc/ansible/roles/role_under_test:ro ${run_opts} geerlingguy/docker-${distro}-ansible:latest "${init}" > "${container_id}"'
-
-  # Ansible syntax check.
-  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml --syntax-check'
-
-  # Test role.
-  - 'docker exec "$(cat ${container_id})" ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml'
-
-  # Test role idempotence.
-  - idempotence=$(mktemp)
-  - docker exec "$(cat ${container_id})" ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml | tee -a ${idempotence}
-  - >
-    tail ${idempotence}
-    | grep -q 'changed=0.*failed=0'
-    && (echo 'Idempotence test: pass' && exit 0)
-    || (echo 'Idempotence test: fail' && exit 1)
-
-  # Log Ansible version
-  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible --version'
-
-  # Log gathered facts
-  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible -m setup localhost'
+  - molecule test
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
