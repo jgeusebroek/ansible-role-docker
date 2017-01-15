@@ -1,3 +1,22 @@
 .vagrant
 .kitchen
+.molecule
+.cache
+*.retry
+*.pyc
+__pycache__
+pytestdebug.log
 
+# Created by .gitignore support plugin (hsz.mobi)
+.idea
+*.iml
+
+# OSX
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+.directory
+.Trash-*

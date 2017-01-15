@@ -1,9 +1,0 @@
----
-- hosts: all
-
-  vars:
-    docker_create_group: true
-    docker_group_id: 797
-
-  roles:
-    - role_under_test

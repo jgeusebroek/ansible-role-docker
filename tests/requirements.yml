@@ -1,0 +1,2 @@
+# Required for Docker installation on Debian Wheezy
+- src: jgeusebroek.backports
