@@ -58,10 +58,6 @@
     src: 'docker-systemd-service.j2'
     dest: '/etc/systemd/system/docker.service.d/override.conf'
   when: ansible_service_mgr == "systemd"
-  register: dropinfile
   notify:
+    - Reload systemd
     - Restart Docker
-
-- name: Reload systemd
-  command: 'systemctl daemon-reload'
-  when: ansible_service_mgr == "systemd" and dropinfile.changed
