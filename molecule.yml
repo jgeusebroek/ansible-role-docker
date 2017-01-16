@@ -11,10 +11,7 @@ docker:
     - name: debian8
       image: jgeusebroek/debian8-molecule
       image_version: latest
-      privileged: true
       command: /lib/systemd/systemd
-      volume_mounts:
-        - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
       ansible_groups:
         - debian
     # - name: debian7
@@ -27,10 +24,7 @@ docker:
     - name: centos7
       image: jgeusebroek/centos7-molecule
       image_version: latest
-      privileged: true
       command: /usr/lib/systemd/systemd
-      volume_mounts:
-        - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
       ansible_groups:
         - redhat
     # - name: centos6
@@ -43,10 +37,7 @@ docker:
     - name: ubuntu1604
       image: jgeusebroek/ubuntu1604-molecule
       image_version: latest
-      privileged: true
       command: /lib/systemd/systemd
-      volume_mounts:
-        - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
       ansible_groups:
         - ubuntu
     # - name: ubuntu1404

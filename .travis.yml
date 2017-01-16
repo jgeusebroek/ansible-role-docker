@@ -43,9 +43,6 @@ install:
   # Build the Docker images
   - molecule create
 
-  # Log memory avaiable and running processes for debugging
-  - free -m && ps -e -orss=,args= | sort  -b -k1,1n
-
 script:
   - molecule test
 
