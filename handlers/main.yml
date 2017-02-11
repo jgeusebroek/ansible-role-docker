@@ -1,4 +1,7 @@
 ---
+- name: Reload systemd
+  command: 'systemctl daemon-reload'
+
 - name: Restart Docker
   service: name=docker state=restarted
   when: "under_test is not defined"
