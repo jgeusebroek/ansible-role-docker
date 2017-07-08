@@ -14,21 +14,16 @@
     keyserver: 'p80.pool.sks-keyservers.net'
     id: '0EBFCD88'
 
-- debug: var=docker_apt_repo
 - name: Enable Docker apt repository | Debian / Ubuntu
   apt_repository:
     repo: '{{ docker_apt_repo }}'
     state: present
+  register: dockerrepo
 
-- command: "cat /etc/apt/sources.list"
-  register: debug
-- debug: var=debug.stdout_lines
-- command: "cat /etc/apt/sources.list.d/*"
-  register: debug2
-  ignore_errors: true
-- debug: var=debug2.stdout_lines
-- apt:
+- name: Update apt cache | Debian / Ubuntu
+  apt:
     update_cache: yes
+  when: dockerrepo.changed
 
 - name: Ensure Docker Engine is installed | Debian / Ubuntu
   apt:
