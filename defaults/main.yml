@@ -2,7 +2,7 @@
 docker_yum_repo: "https://yum.dockerproject.org/repo/main/{{ ansible_distribution | lower }}/{{ ansible_distribution_major_version }}"
 docker_yum_repo_gpg: 'https://yum.dockerproject.org/gpg'
 
-docker_apt_repo: "deb https://apt.dockerproject.org/repo {{ ansible_distribution|lower }}-{{ ansible_distribution_release }} main"
+docker_apt_repo: "deb [arch=amd64] https://apt.dockerproject.org/repo {{ ansible_distribution|lower }}-{{ ansible_distribution_release }} main"
 
 docker_create_group: False
 docker_group_id: 797
