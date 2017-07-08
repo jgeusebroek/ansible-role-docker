@@ -12,7 +12,7 @@
 - name: Import Docker GPG key | Debian / Ubuntu
   apt_key:
     keyserver: 'p80.pool.sks-keyservers.net'
-    id: '58118E89F3A912897C070ADBF76221572C52609D'
+    id: '0EBFCD88'
 
 - debug: var=docker_apt_repo
 - name: Enable Docker apt repository | Debian / Ubuntu
