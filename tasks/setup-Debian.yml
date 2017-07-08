@@ -31,5 +31,5 @@
 
 - name: Ensure Docker Engine is installed | Debian / Ubuntu
   apt:
-    name: 'docker-engine'
+    name: 'docker-ce'
     state: present

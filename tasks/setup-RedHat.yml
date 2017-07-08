@@ -13,5 +13,5 @@
 
 - name: Ensure Docker Engine is installed | RedHat
   package:
-    name: 'docker-engine'
+    name: 'docker-ce'
     state: present
