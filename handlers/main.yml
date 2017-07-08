@@ -4,7 +4,7 @@
 
 - name: Restart Docker
   service: name=docker state=restarted
-  when: "under_test is not defined"
+  when: "under_test is not defined" and not (ansible_virtualization_type is defined and ansible_virtualization_type == "docker")
 
 - name: Start Docker
   service: name=docker state=started
