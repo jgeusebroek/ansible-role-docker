@@ -18,6 +18,11 @@
   apt_repository:
     repo: '{{ docker_apt_repo }}'
     state: present
+
+- command: "cat /etc/apt/sources.list"
+  register: debug
+- debug: var=debug.stdout_lines
+- apt:
     update_cache: yes
 
 - name: Ensure Docker Engine is installed | Debian / Ubuntu
