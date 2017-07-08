@@ -14,6 +14,7 @@
     keyserver: 'p80.pool.sks-keyservers.net'
     id: '58118E89F3A912897C070ADBF76221572C52609D'
 
+- debug: var=docker_apt_repo
 - name: Enable Docker apt repository | Debian / Ubuntu
   apt_repository:
     repo: '{{ docker_apt_repo }}'
@@ -22,6 +23,9 @@
 - command: "cat /etc/apt/sources.list"
   register: debug
 - debug: var=debug.stdout_lines
+- command: "cat /etc/apt/sources.list.d/*"
+  register: debug2
+- debug: var=debug2.stdout_lines
 - apt:
     update_cache: yes
 
