@@ -3,7 +3,7 @@
 - name: Check kernel version for docker support
   fail:
     msg: "Kernel version {{ ansible_kernel }} does not meet minimum version ({{ docker_minimal_kernel_version }})."
-  when: "{{ ansible_kernel | version_compare(docker_minimal_kernel_version, '<') }}"
+  when: "ansible_kernel | version_compare(docker_minimal_kernel_version, '<')"
 
 - name: Create docker group
   group:
