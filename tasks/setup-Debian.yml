@@ -12,15 +12,35 @@
 - name: Import Docker GPG key | Debian / Ubuntu
   apt_key:
     keyserver: 'p80.pool.sks-keyservers.net'
-    id: '58118E89F3A912897C070ADBF76221572C52609D'
+    id: '0EBFCD88'
 
 - name: Enable Docker apt repository | Debian / Ubuntu
   apt_repository:
     repo: '{{ docker_apt_repo }}'
     state: present
-    update_cache: yes
+  register: dockerrepo
 
-- name: Ensure Docker Engine is installed | Debian / Ubuntu
+- name: Update apt cache | Debian / Ubuntu
   apt:
-    name: 'docker-engine'
+    update_cache: yes
+  when: dockerrepo.changed
+
+- name: Ensure older Docker packages are removed (pre docker-CE)
+  package:
+    name: '{{ item }}'
+    state: absent
+  with_items:
+    - docker-engine
+    - docker
+  register: dockercleaned
+
+- name: Remove old systemd drop-in file
+  file:
+    path: '/etc/systemd/system/docker.service.d/override.conf'
+    state: absent
+  when: dockercleaned.changed
+
+- name: Ensure Docker Community Edition is installed | Debian / Ubuntu
+  apt:
+    name: 'docker-ce'
     state: present
