@@ -25,7 +25,7 @@
     update_cache: yes
   when: dockerrepo.changed
 
-- name: Ensure older Docker packages are removed (pre docker-ce)
+- name: Ensure older Docker packages are removed (pre docker-CE)
   package:
     name: '{{ item }}'
     state: absent
@@ -40,7 +40,7 @@
     state: absent
   when: dockercleaned.changed
 
-- name: Ensure Docker Engine is installed | Debian / Ubuntu
+- name: Ensure Docker Community Edition is installed | Debian / Ubuntu
   apt:
     name: 'docker-ce'
     state: present

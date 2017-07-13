@@ -11,7 +11,7 @@
     key: "{{ docker_yum_repo_gpg }}"
     state: present
 
-- name: Ensure older Docker packages are removed (pre docker-ce)
+- name: Ensure older Docker packages are removed (pre docker-CE)
   package:
     name: '{{ item }}'
     state: absent
@@ -26,7 +26,7 @@
     state: absent
   when: dockercleaned.changed
 
-- name: Ensure Docker is installed | RedHat
+- name: Ensure Docker Community Edition is installed | RedHat
   package:
     name: 'docker-ce'
     state: present
