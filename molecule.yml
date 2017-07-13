@@ -17,13 +17,13 @@ docker:
         - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
       ansible_groups:
         - debian
-    - name: debian7
-      image: jgeusebroek/debian7-molecule
-      image_version: latest
-      privileged: true
-      command: /sbin/init
-      ansible_groups:
-        - debian
+    # - name: debian7
+    #   image: jgeusebroek/debian7-molecule
+    #   image_version: latest
+    #   privileged: true
+    #   command: /sbin/init
+    #   ansible_groups:
+    #     - debian
     - name: centos7
       image: jgeusebroek/centos7-molecule
       image_version: latest
@@ -33,13 +33,13 @@ docker:
         - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
       ansible_groups:
         - redhat
-    - name: centos6
-      image: centos
-      image_version: 6
-      privileged: true
-      command: /sbin/init
-      ansible_groups:
-        - redhat
+    # - name: centos6
+    #   image: centos
+    #   image_version: 6
+    #   privileged: true
+    #   command: /sbin/init
+    #   ansible_groups:
+    #     - redhat
     - name: ubuntu1604
       image: jgeusebroek/ubuntu1604-molecule
       image_version: latest
