@@ -11,7 +11,22 @@
     key: "{{ docker_yum_repo_gpg }}"
     state: present
 
-- name: Ensure Docker Engine is installed | RedHat
+- name: Ensure older Docker packages are removed (pre docker-ce)
+  package:
+    name: '{{ item }}'
+    state: absent
+  with_items:
+    - docker-engine
+    - docker
+  register: dockercleaned
+
+- name: Remove old systemd drop-in file
+  file:
+    path: '/etc/systemd/system/docker.service.d/override.conf'
+    state: absent
+  when: dockercleaned.changed
+
+- name: Ensure Docker is installed | RedHat
   package:
     name: 'docker-ce'
     state: present
