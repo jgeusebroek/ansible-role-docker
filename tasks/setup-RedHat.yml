@@ -25,6 +25,8 @@
     path: '/etc/systemd/system/docker.service.d/override.conf'
     state: absent
   when: dockercleaned.changed
+  tags: skip_ansible_lint
+
 
 - name: Ensure Docker Community Edition is installed | RedHat
   package:

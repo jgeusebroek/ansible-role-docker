@@ -24,6 +24,7 @@
   apt:
     update_cache: yes
   when: dockerrepo.changed
+  tags: skip_ansible_lint
 
 - name: Ensure older Docker packages are removed (pre docker-CE)
   package:
@@ -39,6 +40,7 @@
     path: '/etc/systemd/system/docker.service.d/override.conf'
     state: absent
   when: dockercleaned.changed
+  tags: skip_ansible_lint
 
 - name: Ensure Docker Community Edition is installed | Debian / Ubuntu
   apt:
