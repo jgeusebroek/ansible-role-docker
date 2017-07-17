@@ -8,6 +8,15 @@ driver:
   name: docker
 docker:
   containers:
+    - name: debian9
+      image: jgeusebroek/debian9-molecule
+      image_version: latest
+      privileged: true
+      command: /lib/systemd/systemd
+      volume_mounts:
+        - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+      ansible_groups:
+        - debian
     - name: debian8
       image: jgeusebroek/debian8-molecule
       image_version: latest
