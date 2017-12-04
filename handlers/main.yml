@@ -1,6 +1,7 @@
 ---
 - name: Reload systemd
   command: 'systemctl daemon-reload'
+  tags: skip_ansible_lint
 
 - name: Restart Docker
   service: name=docker state=restarted
