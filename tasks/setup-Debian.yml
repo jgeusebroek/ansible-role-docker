@@ -7,7 +7,7 @@
 - name: Ensure APT transport HTTPS is installed | Debian / Ubuntu
   apt:
     name: 'apt-transport-https'
-    state: installed
+    state: present
 
 - name: Import Docker GPG key | Debian / Ubuntu
   apt_key:
