@@ -12,20 +12,6 @@ lint:
   options:
     config-file: ../../../resources/.yamllint
 platforms:
-    # - name: debian7
-    #   image: jgeusebroek/debian7-molecule
-    #   privileged: true
-    #   command: /sbin/init
-    #   groups:
-    #     - debian
-    # - name: debian8
-    #   image: jgeusebroek/debian8-molecule
-    #   privileged: true
-    #   command: /lib/systemd/systemd
-    #   volumes:
-    #     - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
-    #   groups:
-    #     - debian
     - name: debian9
       image: geerlingguy/docker-debian9-ansible
       privileged: true
