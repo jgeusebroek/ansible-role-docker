@@ -48,6 +48,14 @@ platforms:
         - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
       groups:
         - ubuntu
+    - name: ubuntu1804
+      image: jgeusebroek/ubuntu1804-molecule
+      privileged: true
+      command: /lib/systemd/systemd
+      volumes:
+        - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+      groups:
+        - ubuntu
 provisioner:
   name: ansible
   lint:
