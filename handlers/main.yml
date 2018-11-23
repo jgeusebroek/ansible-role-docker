@@ -2,6 +2,7 @@
 - name: Reload systemd
   command: 'systemctl daemon-reload'
   when: not (ansible_virtualization_type is defined and ansible_virtualization_type == "docker")
+  tags: skip_ansible_lint
 
 - name: Restart Docker
   service: name=docker state=restarted
