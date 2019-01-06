@@ -11,7 +11,7 @@
     state: present
     gid: '{{ docker_group_id }}'
     system: yes
-  when: docker_create_group == True
+  when: docker_create_group
 
 - include_tasks: setup-Debian.yml
   when: ansible_os_family == "Debian"
