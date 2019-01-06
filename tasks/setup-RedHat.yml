@@ -10,6 +10,8 @@
   rpm_key:
     key: "{{ docker_yum_repo_gpg }}"
     state: present
+  register: pkg_result
+  until: pkg_result is success
 
 - name: Ensure older Docker packages are removed (pre docker-CE)
   package:
@@ -32,3 +34,5 @@
   package:
     name: 'docker-ce'
     state: present
+  register: pkg_result
+  until: pkg_result is success
