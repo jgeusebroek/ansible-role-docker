@@ -1,8 +1,4 @@
 ---
-- hosts: debian7
-  roles:
-    - { role: jgeusebroek.backports, when: ansible_os_family == 'Debian' and ansible_distribution_release == 'wheezy' }
-
 - hosts: all
 
   vars:

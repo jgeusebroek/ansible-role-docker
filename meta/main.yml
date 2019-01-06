@@ -5,7 +5,7 @@ galaxy_info:
   author: Jeroen Geusebroek
   description: Install ands configures Docker Engine on Redhat/CentOS and Debian/Ubuntu
   license: "license (BSD, MIT)"
-  min_ansible_version: 2.0
+  min_ansible_version: 2.5
   platforms:
     - name: EL
       versions:
@@ -13,11 +13,11 @@ galaxy_info:
     - name: Debian
       versions:
       - jessie
-      - wheezy
       - stretch
     - name: Ubuntu
       versions:
         - trusty
         - xenial
+        - bionic
   categories:
     - system

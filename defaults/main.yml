@@ -2,7 +2,7 @@
 docker_yum_repo: "https://download.docker.com/linux/{{ ansible_distribution | lower }}/{{ ansible_distribution_major_version }}"
 docker_yum_repo_gpg: 'https://download.docker.com/linux/centos/gpg'
 
-docker_apt_repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable"
+docker_apt_repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable {{ 'test' if ansible_distribution_release == 'bionic' else '' }}"
 
 docker_create_group: False
 docker_group_id: 797
