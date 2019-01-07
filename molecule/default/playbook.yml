@@ -2,9 +2,9 @@
 - hosts: all
 
   vars:
-      docker_create_group: true
-      docker_group_id: 797
-      under_test: true
+    docker_create_group: true
+    docker_group_id: 797
+    under_test: true
 
   roles:
     - role: jgeusebroek.docker
