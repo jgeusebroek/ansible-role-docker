@@ -15,8 +15,9 @@
 
 - name: Import Docker GPG key | Debian / Ubuntu
   apt_key:
-    keyserver: 'pool.sks-keyservers.net'
-    id: '0EBFCD88'
+    url: '{{ docker_apt_repo_gpg_url }}'
+    id: '{{ docker_apt_repo_gpg_id }}'
+    state: present
   register: pkg_result
   until: pkg_result is success
 
