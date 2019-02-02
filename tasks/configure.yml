@@ -1,4 +1,5 @@
 ---
+
 - name: Ensure docker service is enabled
   service:
     name: 'docker'
@@ -68,3 +69,5 @@
   notify:
     - Reload systemd
     - Restart Docker
+
+- meta: flush_handlers

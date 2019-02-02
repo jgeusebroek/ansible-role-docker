@@ -1,3 +1,5 @@
+---
+
 - name: Enable Docker yum repository | RedHat
   template:
     src: 'docker-repo.j2'
