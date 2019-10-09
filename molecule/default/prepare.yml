@@ -7,5 +7,5 @@
         name: '{{ item }}'
         state: present
       with_items:
-        - gpg
+        - gnupg
       when: ansible_distribution == 'Debian'
