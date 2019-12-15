@@ -1,14 +1,9 @@
 ---
-- hosts: debian7
-  roles:
-    - { role: jgeusebroek.backports, when: ansible_os_family == 'Debian' and ansible_distribution_release == 'wheezy' }
-
 - hosts: all
 
   vars:
-      docker_create_group: true
-      docker_group_id: 797
-      under_test: true
+    docker_create_group: true
+    docker_group_id: 797
 
   roles:
     - role: jgeusebroek.docker

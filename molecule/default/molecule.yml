@@ -1,71 +1,25 @@
 ---
-dependency:
-  name: galaxy
-  options:
-    ignore-certs: True
-    ignore-errors: True
 driver:
   name: docker
 lint:
   name: yamllint
   enabled: False
   options:
-    config-file: ../../../resources/.yamllint
+    config-file: molecule/default/yamllint.yml
 platforms:
-    # - name: debian7
-    #   image: jgeusebroek/debian7-molecule
-    #   privileged: true
-    #   command: /sbin/init
-    #   groups:
-    #     - debian
-    # - name: debian8
-    #   image: jgeusebroek/debian8-molecule
-    #   privileged: true
-    #   command: /lib/systemd/systemd
-    #   volumes:
-    #     - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
-    #   groups:
-    #     - debian
-    - name: debian9
-      image: geerlingguy/docker-debian9-ansible
-      privileged: true
-      command: /lib/systemd/systemd
-      volumes:
-        - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
-      groups:
-        - debian
-    # - name: centos6
-    #   image: centos
-    #   privileged: true
-    #   command: /sbin/init
-    #   ansible_groups:
-    #     - redhat
-    - name: centos7
-      image: jgeusebroek/centos7-molecule
-      privileged: true
-      command: /usr/lib/systemd/systemd
-      volumes:
-        - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
-      groups:
-        - redhat
-    # - name: ubuntu1404
-    #   image: jgeusebroek/ubuntu1404-molecule
-    #   privileged: true
-    #   command: /sbin/init
-    #   groups:
-    #     - ubuntu
-    - name: ubuntu1604
-      image: jgeusebroek/ubuntu1604-molecule
-      privileged: true
-      command: /lib/systemd/systemd
-      volumes:
-        - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
-      groups:
-        - ubuntu
+  - name: "${MOLECULE_DISTRO:-centos7}"
+    image: "jgeusebroek/${MOLECULE_DISTRO:-centos7}-molecule:latest"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
 provisioner:
   name: ansible
   lint:
     name: ansible-lint
+  playbooks:
+    converge: ${MOLECULE_PLAYBOOK:-playbook.yml}
 scenario:
   name: default
 verifier:

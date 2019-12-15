@@ -3,7 +3,7 @@
 - name: Check kernel version for docker support
   fail:
     msg: "Kernel version {{ ansible_kernel }} does not meet minimum version ({{ docker_minimal_kernel_version }})."
-  when: "ansible_kernel | version_compare(docker_minimal_kernel_version, '<')"
+  when: "ansible_kernel is version_compare(docker_minimal_kernel_version, '<')"
 
 - name: Create docker group
   group:
@@ -11,12 +11,12 @@
     state: present
     gid: '{{ docker_group_id }}'
     system: yes
-  when: docker_create_group == True
+  when: docker_create_group
 
-- include: setup-Debian.yml
+- include_tasks: setup-Debian.yml
   when: ansible_os_family == "Debian"
 
-- include: setup-RedHat.yml
+- include_tasks: setup-RedHat.yml
   when: ansible_os_family == "RedHat"
 
-- include: configure.yml
+- include_tasks: configure.yml

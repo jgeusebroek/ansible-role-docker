@@ -1,5 +1,11 @@
 ---
-- name: Prepare
-  hosts: all
-  gather_facts: false
-  tasks: []
+- hosts: all
+
+  tasks:
+    - name: Install required packages (Debian)
+      package:
+        name: '{{ item }}'
+        state: present
+      with_items:
+        - gnupg
+      when: ansible_distribution == 'Debian'

@@ -5,7 +5,7 @@
 
 An Ansible Role that installs and configures Docker Engine on RedHat/CentOS or Debian/Ubuntu.
 
-Tested on CentOS 7, Debian 7 / 8 and Ubuntu 14.04 / 16.04.
+Tested on CentOS 7, Debian 8 / 9 and Ubuntu 14.04 / 16.04 / 18.04.
 
 ## Requirements
 
@@ -51,6 +51,8 @@ The port and the IP can be overridden.
 
 Have a look at [https://docs.docker.com/engine/security/https/](https://docs.docker.com/engine/security/https/) for the official docker documentation.
 
+**NOTE:** You can use [Ansible vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html) to securely store secret keys. This is a much better solution than storing them in plain text. I would advise against using the example below in production.
+
 	docker_tls_keys:
 	  ca_cert: |
 	    -----BEGIN CERTIFICATE-----
@@ -81,4 +83,4 @@ MIT / BSD
 
 ## Author Information
 
-By [Jeroen Geusebroek](http://jeroengeusebroek.nl/) 2016 - 2017.
+By [Jeroen Geusebroek](http://jeroengeusebroek.nl/) 2016 - 2019
