@@ -2,7 +2,7 @@
 
 - name: Update apt cache | Debian / Ubuntu
   apt:
-    update_cache: yes
+    update_cache: true
     cache_valid_time: 86400
   register: pkg_result
   until: pkg_result is success
@@ -30,7 +30,7 @@
 
 - name: Update apt cache | Debian / Ubuntu
   apt:
-    update_cache: yes
+    update_cache: true
   when: dockerrepo.changed
   tags: skip_ansible_lint
 

@@ -3,7 +3,7 @@
 - name: Ensure docker service is enabled
   service:
     name: 'docker'
-    enabled: True
+    enabled: true
   when: not (ansible_virtualization_type is defined and ansible_virtualization_type == "docker")
 
 - name: Ensure TLS key basepath exists
@@ -19,17 +19,17 @@
     owner: root
     group: root
     mode: '{{ item.mode }}'
-  no_log: True
+  no_log: true
   with_items:
     - { content: '{{ docker_tls_keys.ca_cert|default("") }}', dest: '{{ docker_tls_basepath }}/ca.crt', mode: '0644' }
     - { content: '{{ docker_tls_keys.server_cert|default("") }}',
         dest: '{{ docker_tls_basepath }}/server.crt',
         mode: '0644'
-      }
+    }
     - { content: '{{ docker_tls_keys.server_key|default("") }}',
         dest: '{{ docker_tls_basepath }}/server.key',
         mode: '0600'
-      }
+    }
   when: docker_tls_enable and docker_tls_keys.ca_cert is defined
   notify:
     - Restart Docker

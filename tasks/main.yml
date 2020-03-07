@@ -10,7 +10,7 @@
     name: docker
     state: present
     gid: '{{ docker_group_id }}'
-    system: yes
+    system: true
   when: docker_create_group
 
 - include_tasks: setup-Debian.yml
