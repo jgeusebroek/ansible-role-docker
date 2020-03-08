@@ -2,7 +2,7 @@
 
 - name: Update apt cache | Debian / Ubuntu
   apt:
-    update_cache: yes
+    update_cache: true
     cache_valid_time: 86400
   register: pkg_result
   until: pkg_result is success
@@ -10,6 +10,13 @@
 - name: Ensure APT transport HTTPS is installed | Debian / Ubuntu
   apt:
     name: 'apt-transport-https'
+    state: present
+  register: pkg_result
+  until: pkg_result is success
+
+- name: Ensure GPG is installed | Debian / Ubuntu
+  apt:
+    name: gnupg
     state: present
   register: pkg_result
   until: pkg_result is success
@@ -30,7 +37,7 @@
 
 - name: Update apt cache | Debian / Ubuntu
   apt:
-    update_cache: yes
+    update_cache: true
   when: dockerrepo.changed
   tags: skip_ansible_lint
 

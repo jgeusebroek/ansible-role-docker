@@ -2,7 +2,7 @@
 
 - name: Reload systemd
   systemd:
-    daemon_reload: yes
+    daemon_reload: true
   when: not (ansible_virtualization_type is defined and ansible_virtualization_type == "docker")
   tags: skip_ansible_lint
 

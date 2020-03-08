@@ -1,11 +1,11 @@
 ---
 driver:
   name: docker
-lint:
-  name: yamllint
-  enabled: False
-  options:
-    config-file: molecule/default/yamllint.yml
+lint: |
+  set -e
+  yamllint -c molecule/default/yamllint.yml .
+  ansible-lint
+  flake8
 platforms:
   - name: "${MOLECULE_DISTRO:-centos7}"
     image: "jgeusebroek/${MOLECULE_DISTRO:-centos7}-molecule:latest"
@@ -16,13 +16,9 @@ platforms:
     pre_build_image: true
 provisioner:
   name: ansible
-  lint:
-    name: ansible-lint
   playbooks:
     converge: ${MOLECULE_PLAYBOOK:-playbook.yml}
 scenario:
   name: default
 verifier:
   name: testinfra
-  lint:
-    name: flake8

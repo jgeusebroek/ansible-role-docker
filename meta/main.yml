@@ -9,12 +9,12 @@ galaxy_info:
   platforms:
     - name: EL
       versions:
-      - all
+        - all
     - name: Debian
       versions:
-      - jessie
-      - stretch
-      - buster
+        - jessie
+        - stretch
+        - buster
     - name: Ubuntu
       versions:
         - trusty

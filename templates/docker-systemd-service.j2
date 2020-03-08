@@ -1,3 +1,5 @@
+{{ ansible_managed | comment }}
+
 [Service]
 ExecStart=
 ExecStart=/usr/bin/dockerd {{ docker_opts }}

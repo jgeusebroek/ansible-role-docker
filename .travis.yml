@@ -18,7 +18,7 @@ cache:
 
 install:
   # Install Ansible, Molecule and docker-py
-  - pip install ansible molecule docker
+  - pip install ansible molecule docker ansible-lint flake8
 
   # Log Docker, Ansible and Molecule version
   - docker --version
