@@ -10,6 +10,7 @@
   file:
     path: "{{ docker_tls_basepath }}"
     state: directory
+    mode: 0755
   when: docker_tls_enable
 
 - name: Copy TLS keys to docker host
@@ -43,6 +44,7 @@
   template:
     src: 'docker-defaults.j2'
     dest: '/etc/default/docker'
+    mode: 0644
   when: ansible_service_mgr == "upstart"
   notify:
     - Restart Docker
@@ -51,6 +53,7 @@
   template:
     src: 'docker-sysvinit-defaults.j2'
     dest: '/etc/default/docker'
+    mode: 0644
   when: ansible_service_mgr == "sysvinit"
   notify:
     - Restart Docker
@@ -59,12 +62,14 @@
   file:
     path: '/etc/systemd/system/docker.service.d'
     state: directory
+    mode: 0755
   when: ansible_service_mgr == "systemd"
 
 - name: Create Docker systemd drop-in file
   template:
     src: 'docker-systemd-service.j2'
     dest: '/etc/systemd/system/docker.service.d/override.conf'
+    mode: 0644
   when: ansible_service_mgr == "systemd"
   notify:
     - Reload systemd
