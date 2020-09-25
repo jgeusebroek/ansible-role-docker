@@ -5,7 +5,7 @@
 
 An Ansible Role that installs and configures Docker Engine on RedHat/CentOS or Debian/Ubuntu.
 
-Tested on CentOS 7, Debian 8 / 9 and Ubuntu 14.04 / 16.04 / 18.04.
+Tested on CentOS 7, Debian 9 / 10 and Ubuntu 16.04 / 18.04 / 20.04
 
 ## Requirements
 
