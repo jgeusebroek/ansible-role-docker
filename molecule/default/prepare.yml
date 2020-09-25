@@ -2,10 +2,9 @@
 - hosts: all
 
   tasks:
-    - name: Install required packages (Debian)
-      package:
-        name: '{{ item }}'
+    - name: Install required packages (Debian / Ubuntu)
+      apt:
+        name: 'gnupg'
+        update_cache: true
         state: present
-      with_items:
-        - gnupg
-      when: ansible_distribution == 'Debian'
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
