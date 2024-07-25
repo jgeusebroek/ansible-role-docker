@@ -22,10 +22,11 @@
   until: pkg_result is success
 
 - name: Import Docker GPG key | Debian / Ubuntu
-  apt_key:
-    url: '{{ docker_apt_repo_gpg_url }}'
-    id: '{{ docker_apt_repo_gpg_id }}'
-    state: present
+  ansible.builtin.get_url:
+    url: "{{ docker_apt_repo_gpg_url }}"
+    dest: /etc/apt/trusted.gpg.d/docker.asc
+    mode: '0644'
+    force: true
   register: pkg_result
   until: pkg_result is success
 
